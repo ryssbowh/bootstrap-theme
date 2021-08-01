@@ -1,0 +1,13 @@
+{% extends "fields/_field" %}
+
+{% block content %}
+    {% if value|length %}
+        <ul class="tag-list d-flex p-0 m-0">
+            {% for tag in value %}
+                <li class="tag-list-item badge badge-primary py-2 px-3 mr-2">
+                    {{ tag.title }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% do layout.eagerLoadFields(element, 'default') %}
+
+<!DOCTYPE html>
+<html lang="{{ currentSite.language }}">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="referrer" content="origin-when-cross-origin" />
+    </head>
+    <body class="type-{{ element.type.handle }} section-{{ element.section.handle }} slug-{{ element.slug }}">
+        <header class="py-5 bg-primary">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        {{ layout.getRegion('header-left').render(element)|raw }}
+                    </div>
+                    <div class="col-9">
+                        {{ layout.getRegion('header-right').render(element)|raw }}
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="py-5">
+            {{ layout.getRegion('banner').render(element)|raw }}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        {{ layout.getRegion('before-content').render(element)|raw }}
+                    </div>
+                    <div class="col-12">
+                        {{ layout.getRegion('content').render(element)|raw }}
+                    </div>
+                    <div class="col-12">
+                        {{ layout.getRegion('after-content').render(element)|raw }}
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="py-2 bg-primary">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-6">
+                        {{ layout.getRegion('footer-left').render(element)|raw }}
+                    </div>
+                    <div class="col-12 col-lg-6 text-right">
+                        {{ layout.getRegion('footer-right').render(element)|raw }}
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

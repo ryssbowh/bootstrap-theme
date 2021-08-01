@@ -1,0 +1,19 @@
+{
+  "name": "ryssbowh/bootstrap-theme",
+  "description": "Bootstrap Theme",
+  "type": "craft-plugin",
+  "version": "1.0",
+  "autoload": {
+    "psr-4": {
+      "Ryssbowh\\BootstrapTheme\\": ""
+    }
+  },
+  "require": {
+    "ryssbowh/craft-themes": "*"
+  },
+  "extra": {
+    "name": "Bootstrap Theme",
+    "handle": "bootstrap-theme",
+    "class": "Ryssbowh\\BootstrapTheme\\Theme"
+  }
+}
