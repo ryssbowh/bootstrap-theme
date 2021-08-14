@@ -43,99 +43,91 @@ class Theme extends ThemePlugin
     /**
      * @inheritDoc
      */
-    public function getRegions(): array
+    protected function defineRegions(): ?array
     {
         return [
-            new Region([
+            [
                 'handle' => 'header-left',
                 'name' => \Craft::t('themes', 'Header Left'),
                 'width' => '49%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'header-right',
                 'name' => \Craft::t('themes', 'Header Right'),
                 'width' => '49%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'banner',
                 'name' => \Craft::t('themes', 'Banner'),
                 'width' => '100%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'before-content',
                 'name' => \Craft::t('themes', 'Before Content'),
                 'width' => '100%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'content',
                 'name' => \Craft::t('themes', 'Content'),
                 'width' => '100%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'after-content',
                 'name' => \Craft::t('themes', 'After Content'),
                 'width' => '100%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'footer-left',
                 'name' => \Craft::t('themes', 'Footer Left'),
                 'width' => '49%',
-            ]),
-            new Region([
+            ],
+            [
                 'handle' => 'footer-right',
                 'name' => \Craft::t('themes', 'Footer Right'),
                 'width' => '49%',
-            ])
+            ]
         ];
     }
 
     /**
      * @inheritDoc
      */
-    public function afterInstall()
+    public function afterThemeInstall()
     {
-        parent::afterInstall();
         /**
          * Blocks
          */
         $defaultLayout = Themes::$plugin->layouts->getDefault('bootstrap-theme');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'system',
-            'handle' => 'content',
-            'region' => 'content'
+            'handle' => 'content'
         ]);
-        $defaultLayout->addBlock($block);
-        $defaultLayout->addBlock($block);
+        $defaultLayout->addBlock($block, 'content');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'system',
-            'handle' => 'flash-messages',
-            'region' => 'before-content'
+            'handle' => 'flash-messages'
         ]);
-        $defaultLayout->addBlock($block);
+        $defaultLayout->addBlock($block, 'before-content');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'system',
-            'handle' => 'sitename',
-            'region' => 'header-left'
+            'handle' => 'sitename'
         ]);
-        $defaultLayout->addBlock($block);
+        $defaultLayout->addBlock($block, 'header-left');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'bootstrap',
-            'handle' => 'powered-by',
-            'region' => 'footer-right'
+            'handle' => 'powered-by'
         ]);
-        $defaultLayout->addBlock($block);
+        $defaultLayout->addBlock($block, 'footer-right');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'bootstrap',
-            'handle' => 'main-menu',
-            'region' => 'header-right'
+            'handle' => 'main-menu'
         ]);
-        $defaultLayout->addBlock($block);
+        $defaultLayout->addBlock($block, 'header-right');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'bootstrap',
-            'handle' => 'footer-menu',
-            'region' => 'footer-left'
+            'handle' => 'footer-menu'
         ]);
-        $defaultLayout->addBlock($block);
+        $defaultLayout->addBlock($block, 'footer-left');
         Themes::$plugin->layouts->save($defaultLayout);
     }
 }
