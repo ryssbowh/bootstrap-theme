@@ -5,7 +5,7 @@ namespace Ryssbowh\BootstrapTheme\models\blockProviders;
 use Ryssbowh\BootstrapTheme\models\blocks\FooterMenu;
 use Ryssbowh\BootstrapTheme\models\blocks\MainMenu;
 use Ryssbowh\BootstrapTheme\models\blocks\PoweredByBootstrap;
-use Ryssbowh\CraftThemes\models\BlockProvider;
+use Ryssbowh\CraftThemes\base\BlockProvider;
 
 class BootstrapBlockProvider extends BlockProvider
 {
@@ -15,7 +15,7 @@ class BootstrapBlockProvider extends BlockProvider
     protected $_definedBlocks = [
         PoweredByBootstrap::class,
         MainMenu::class,
-        FooterMenu::class,
+        FooterMenu::class
     ];
 
     /**

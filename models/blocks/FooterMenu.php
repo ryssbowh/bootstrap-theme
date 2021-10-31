@@ -2,19 +2,35 @@
 
 namespace Ryssbowh\BootstrapTheme\models\blocks;
 
-use Ryssbowh\BootstrapTheme\models\blockOptions\PoweredByOptions;
+use Ryssbowh\BootstrapTheme\models\blockOptions\FooterMenuOptions;
+use Ryssbowh\CraftThemes\interfaces\BlockOptionsInterface;
 use Ryssbowh\CraftThemes\models\Block;
-use Ryssbowh\CraftThemes\models\BlockOptions;
 
 class FooterMenu extends Block
 {
     /**
      * @var string
      */
-    public $name = 'Footer menu';
+    public static $handle = 'footer-menu';
 
     /**
-     * @var string
+     * @inheritDoc
      */
-    public static $handle = 'footer-menu';
+    public function getName(): string
+    {
+        return \Craft::t('bootstrap-theme', 'Footer menu');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSmallDescription(): string
+    {
+        return '';
+    }
+
+    public function getOptionsModel(): BlockOptionsInterface
+    {
+        return new FooterMenuOptions;
+    }
 }

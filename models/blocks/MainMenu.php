@@ -2,19 +2,28 @@
 
 namespace Ryssbowh\BootstrapTheme\models\blocks;
 
-use Ryssbowh\BootstrapTheme\models\blockOptions\PoweredByOptions;
 use Ryssbowh\CraftThemes\models\Block;
-use Ryssbowh\CraftThemes\models\BlockOptions;
 
 class MainMenu extends Block
 {
     /**
      * @var string
      */
-    public $name = 'Main menu';
+    public static $handle = 'main-menu';
 
     /**
-     * @var string
+     * @inheritDoc
      */
-    public static $handle = 'main-menu';
+    public function getName(): string
+    {
+        return \Craft::t('bootstrap-theme', 'Main menu');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSmallDescription(): string
+    {
+        return '';
+    }
 }

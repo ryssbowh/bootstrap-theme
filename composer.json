@@ -1,6 +1,6 @@
 {
   "name": "ryssbowh/bootstrap-theme",
-  "description": "Bootstrap Theme",
+  "description": "Responsive theme based on Bootstrap 5",
   "type": "craft-plugin",
   "version": "1.0",
   "autoload": {
