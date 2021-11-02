@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace Ryssbowh\BootstrapTheme\models\blocks;
 
 use Ryssbowh\BootstrapTheme\models\blockOptions\FooterMenuOptions;
@@ -27,10 +26,5 @@ class FooterMenu extends Block
     public function getSmallDescription(): string
     {
         return '';
-    }
-
-    public function getOptionsModel(): BlockOptionsInterface
-    {
-        return new FooterMenuOptions;
     }
 }
