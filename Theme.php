@@ -147,16 +147,13 @@ class Theme extends ThemePlugin
      */
     public function afterThemeInstall()
     {
-        $uid = 'e8a97208-d51b-42f8-acf7-42f2405e9786';
-        if (\Craft::$app->projectConfig->get('themes.blocks.' . $uid, true)) {
-            //Theme's data is already in project config, let's abort so we don't create duplicates
+        if ($this->hasDataInstalled()) {
             return;
         }
         $defaultLayout = Themes::$plugin->layouts->getDefault('bootstrap-theme');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'system',
-            'handle' => 'content',
-            'uid' => $uid
+            'handle' => 'content'
         ]);
         $defaultLayout->addBlock($block, 'content');
         $block = Themes::$plugin->blocks->create([
