@@ -1,0 +1,19 @@
+{% block doctype %}
+    <!DOCTYPE html>
+{% endblock %}
+{% block html_tag %}
+    <html lang="{{ currentSite.language }}">
+{% endblock %}
+    {% block head %}
+        <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+            <meta name="referrer" content="origin-when-cross-origin" />
+            <link rel="icon" href="{{ craft.app.plugins.getPlugin('bootstrap-theme').settings.faviconUrl }}">
+        </head>
+    {% endblock %}
+    {% block body %}
+        {{ layout.renderRegions()|raw }}
+    {% endblock %}
+</html>

@@ -1,0 +1,7 @@
+{% extends "files/_file" %}
+
+{% do craft.app.view.registerAssetBundle("Ryssbowh\\BootstrapTheme\\assets\\bundles\\HighlightAssets") %}
+
+{% block content %}
+    <pre><code class="js-highlight" style="opacity:0">{{ asset.getContents }}</code></pre>
+{% endblock %}

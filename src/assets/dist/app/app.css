@@ -1,0 +1,105 @@
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.hljs {
+  transition: 0.2s opacity;
+}
+.bg-header {
+  background-color: var(--header-bg);
+}
+
+header {
+  position: relative;
+}
+
+.block[data-handle=system-sitename] a {
+  text-decoration: none;
+  margin: 0;
+}
+
+@media all and (max-width: 992px) {
+  .block[data-handle=bootstrap-main-menu] {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+  .block[data-handle=bootstrap-main-menu] .container-fluid {
+    padding: 0;
+  }
+
+  .navbar-toggler {
+    z-index: 10001;
+  }
+
+  #region-header-left {
+    margin-bottom: 1rem;
+  }
+
+  #mainMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    background: var(--header-bg);
+  }
+  #mainMenu .navbar-nav {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+}
+.bg-footer {
+  background-color: var(--footer-bg);
+}
+
+@media all and (max-width: 992px) {
+  .block[data-handle=bootstrap-footer-menu] .navbar-collapse {
+    justify-content: center;
+  }
+}
+.profile-form .input-photo-group input[type=file] {
+  line-height: 44px;
+}
+.field:last-child {
+  margin-bottom: 0 !important;
+}
+.field .slick-next::before, .field .slick-prev::before {
+  color: #0d6efd;
+}
+.field .slick-prev, .field .slick-next {
+  z-index: 1;
+}
+.field .slick-prev {
+  left: 10px;
+}
+.field .slick-next {
+  right: 10px;
+}
+.field .slick-dots li.slick-active button::before, .field .slick-dots li button::before {
+  color: #0d6efd;
+}
+.field[data-displayer=colour_default] .colour {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.field[data-displayer=matrix_slick] > .field-content, .field[data-displayer=entry_slick] > .field-content, .field[data-displayer=category_slick] > .field-content, .field[data-displayer=user_slick] > .field-content, .field[data-displayer=tag_slick] > .field-content {
+  padding: 0 25px;
+}
+.field[data-displayer=matrix_slick] > .field-content .slick-prev, .field[data-displayer=entry_slick] > .field-content .slick-prev, .field[data-displayer=category_slick] > .field-content .slick-prev, .field[data-displayer=user_slick] > .field-content .slick-prev, .field[data-displayer=tag_slick] > .field-content .slick-prev {
+  left: -25px;
+}
+.field[data-displayer=matrix_slick] > .field-content .slick-next, .field[data-displayer=entry_slick] > .field-content .slick-next, .field[data-displayer=category_slick] > .field-content .slick-next, .field[data-displayer=user_slick] > .field-content .slick-next, .field[data-displayer=tag_slick] > .field-content .slick-next {
+  right: -25px;
+}
+
+/*# sourceMappingURL=app.css.map*/

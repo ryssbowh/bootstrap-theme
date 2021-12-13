@@ -1,0 +1,16 @@
+{% set label = label ?? '' %}
+{% set link = link ?? '#' %}
+{% set aria_label = aria_label ?? false %}
+{% set disabled = disabled ?? false %}
+{% set active = active ?? false %}
+
+<li class="page-item{% if disabled %} disabled{% endif %}{% if active %} active{% endif %}">
+    <a class="page-link" 
+        href="{{ link }}"
+        {% if aria_label %}aria_label="{{ aria_label }}"{% endif %}
+    >
+        {% block pagination_item_label %}
+            {{ label }}
+        {% endblock %}
+    </a>
+</li>

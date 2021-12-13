@@ -1,0 +1,218 @@
+{% import "_includes/forms" as forms %}
+
+<h2 class="first">{{ 'Base colors'|t('bootstrap-theme') }}</h2>
+
+<div class="b-flex">
+    {{
+        forms.colorField({
+            value: settings.roots['bs-body-color'] ?? settings.defaultRoots['bs-body-color'],
+            name: 'roots[bs-body-color]',
+            label: 'Body text'|t('bootstrap-theme'),
+            fieldClass: 'width-25'
+        })
+    }}
+    {{
+        forms.colorField({
+            value: settings.roots['bs-body-bg'] ?? settings.defaultRoots['bs-body-bg'],
+            name: 'roots[bs-body-bg]',
+            label: 'Body background'|t('bootstrap-theme'),
+            fieldClass: 'width-25'
+        })
+    }}
+    {{
+        forms.colorField({
+            value: settings.roots['header-bg'] ?? settings.defaultRoots['header-bg'],
+            name: 'roots[header-bg]',
+            label: 'Header background'|t('bootstrap-theme'),
+            fieldClass: 'width-25'
+        })
+    }}
+    {{
+        forms.colorField({
+            value: settings.roots['footer-bg'] ?? settings.defaultRoots['footer-bg'],
+            name: 'roots[footer-bg]',
+            label: 'Footer background'|t('bootstrap-theme'),
+            fieldClass: 'width-25'
+        })
+    }}
+</div>
+
+<h2>{{ 'Typography'|t('bootstrap-theme') }}</h2>
+
+<div class="b-flex">
+    {{
+        forms.checkboxSelectField({
+            values: settings.fonts,
+            name: 'fonts',
+            label: 'Enabled fonts'|t('bootstrap-theme'),
+            options: fonts,
+            instructions: 'The fonts that will be loaded on the frontend'|t('bootstrap-theme'),
+            fieldClass: 'width-50'
+        })
+    }}
+    {{
+        forms.selectField({
+            value: settings.roots['bs-body-font-family'] ?? settings.defaultRoots['bs-body-font-family'],
+            name: 'roots[bs-body-font-family]',
+            label: 'Font family'|t('bootstrap-theme'),
+            options: fonts,
+            instructions: "The main body font, make sure it's enabled on the previous setting"|t('bootstrap-theme'),
+            fieldClass: 'width-50'
+        })
+    }}
+    {{
+        forms.textField({
+            value: settings.roots['bs-body-font-size'] ?? settings.defaultRoots['bs-body-font-size'],
+            name: 'roots[bs-body-font-size]',
+            label: 'Font size'|t('bootstrap-theme'),
+            fieldClass: 'width-50'
+        })
+    }}
+    {{
+        forms.textField({
+            type: 'number',
+            value: settings.roots['bs-body-font-weight'] ?? settings.defaultRoots['bs-body-font-weight'],
+            name: 'roots[bs-body-font-weight]',
+            label: 'Font weight'|t('bootstrap-theme'),
+            fieldClass: 'width-50'
+        })
+    }}
+    {{
+        forms.textField({
+            type: 'number',
+            value: settings.roots['bs-body-line-height'] ?? settings.defaultRoots['bs-body-line-height'],
+            name: 'roots[bs-body-line-height]',
+            label: 'Line height'|t('bootstrap-theme'),
+            fieldClass: 'width-50'
+        })
+    }}
+</div>
+
+<h2>{{ 'Imagery'|t('bootstrap-theme') }}</h2>
+<div class="b-flex">
+    <div class="width-50 field">
+        <div class="heading">
+            <label for="settings-logo">{{ 'Logo'|t('bootstrap-theme') }}</label>
+        </div>
+        <img src="{{ settings.logoUrl }}" class="imagery">
+        <div class="input ltr">
+            <input type="file" id="settings-logo" name="logo" accepts=".jpg,.jpeg,.gif,.png,.svg">
+            <label>
+                <input type="hidden" name="deleteLogo" value="">
+                <input type="checkbox" name="deleteLogo" value="1">
+                {{ 'Delete image'|t('bootstrap-theme') }}
+            </label>
+        </div>
+    </div>
+    <div class="width-50 field">
+        <div class="heading">
+            <label for="settings-favicon">{{ 'Favicon'|t('bootstrap-theme') }}</label>
+        </div>
+        <img src="{{ settings.faviconUrl }}" class="imagery">
+        <div class="input ltr">
+            <input type="file" id="settings-favicon" name="favicon" accepts=".jpg,.jpeg,.gif,.png,.ico,.svg">
+            <label>
+                <input type="hidden" name="deleteFavicon" value="">
+                <input type="checkbox" name="deleteFavicon" value="1">
+                {{ 'Delete image'|t('bootstrap-theme') }}
+            </label>
+        </div>
+    </div>
+</div>
+
+{% if roots|length %}
+    {% for section, customs in roots %}
+        <h2>{{ section|t('bootstrap-theme') }}</h2>
+        <div class="b-flex">
+            {% for name, custom in customs %}
+                {% set config = custom.options|merge({
+                    name: 'customRoots[' ~ name ~ ']',
+                    value: settings.customRoots[name] ?? custom.value,
+                    fieldClass: 'width-25'
+                    }) 
+                %}
+                {% switch custom.type %}
+                    {% case "text" %}
+                        {{ forms.textField(config) }}
+                    {% case "date" %}
+                        {{ forms.dateField(config) }}
+                    {% case "time" %}
+                        {{ forms.timeField(config) }}
+                    {% case "color" %}
+                        {{ forms.colorField(config) }}
+                    {% case "dateTime" %}
+                        {{ forms.dateTimeField(config) }}
+                    {% case "textarea" %}
+                        {{ forms.textareaField(config) }}
+                    {% case "select" %}
+                        {{ forms.selectField(config) }}
+                    {% case "multiselect" %}
+                        {{ forms.multiselectField(config) }}
+                    {% case "checkbox" %}
+                        {{ forms.checkboxField(config) }}
+                    {% case "file" %}
+                        {{ forms.fileField(config) }}
+                    {% case "lightswitch" %}
+                        {{ forms.lightswitchField(config) }}
+                    {% case "radioGroup" %}
+                        {{ forms.radioGroupField(config) }}
+                    {% case "checkboxSelect" %}
+                        {{ forms.checkboxSelectField(config) }}
+                    {% case "checkboxGroup" %}
+                        {{ forms.checkboxGroupField(config) }}
+                    {% case "elementSelect" %}
+                        {{ forms.elementSelectField(config) }}
+                    {% case "editableTable" %}
+                        {{ forms.editableTableField(config) }}
+                    {% case "autosuggest" %}
+                        {{ forms.autosuggestField(config) }}
+                    {% default %}
+                {% endswitch %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<h2>{{ 'Miscellanous'|t('bootstrap-theme') }}</h2>
+
+<div class="b-flex">
+    {{
+        forms.selectField({
+            value: settings.codeTheme,
+            name: 'codeTheme',
+            label: 'Theme for code displayer'|t('bootstrap-theme'),
+            options: settings.codeThemes,
+            fieldClass: 'width-50'
+        })
+    }}
+</div>
+
+<style>
+    .no-margin {
+        margin: 0;
+    }
+    .b-flex .width-25 {
+        width:  25%;
+        margin: 12px 0 !important;
+        box-sizing: border-box;
+    }
+    .b-flex .width-50 {
+        width:  50%;
+        margin: 12px 0 !important;
+        box-sizing: border-box;
+    }
+    .b-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .b-flex .width-50:nth-child(2n) {
+        padding-left:  12px;
+    }
+    .b-flex .width-50:nth-child(2n+1) {
+        padding-right:  12px;
+    }
+    .imagery {
+        max-width: 100%;
+        max-height:  100px;
+    }
+</style>

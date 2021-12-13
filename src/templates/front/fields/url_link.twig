@@ -1,0 +1,16 @@
+{% extends "fields/_field" %}
+
+{% block content %}
+    {% if options.displayAsButton %}
+        {% include "_components/button" with {
+            size: options.size,
+            outlined: options.outlined,
+            color: options.color,
+            label: options.label ? options.label : value,
+            newTab: options.newTab,
+            link: value
+        } only %}
+    {% else %}
+        <a href="{{ value }}" {% if options.newTab %}target="_blank"{% endif %} class="link-{{ options.color }}">{{ options.label ? options.label : value }}</a>        
+    {% endif %}
+{% endblock %}

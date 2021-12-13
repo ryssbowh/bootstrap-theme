@@ -5,11 +5,12 @@
   "version": "1.0",
   "autoload": {
     "psr-4": {
-      "Ryssbowh\\BootstrapTheme\\": ""
+      "Ryssbowh\\BootstrapTheme\\": "src/"
     }
   },
   "require": {
-    "ryssbowh/craft-themes": "*"
+    "ozdemirburak/iris": "^2.4",
+    "ryssbowh/craft-themes": "^3.0"
   },
   "extra": {
     "name": "Bootstrap Theme",

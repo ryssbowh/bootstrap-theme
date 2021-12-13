@@ -1,0 +1,13 @@
+img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+.hljs {
+    transition: 0.2s opacity;
+}

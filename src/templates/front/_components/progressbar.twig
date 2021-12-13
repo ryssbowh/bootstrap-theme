@@ -1,0 +1,15 @@
+{% set current = current ?? 0 %}
+{% set min = min ?? 0 %}
+{% set max = max ?? 100 %}
+{% set color = 'primary' %}
+{% set style = ((current / max) * 100)|round(0) %}
+
+<div class="progress">
+    <div class="progress-bar bg-{{ color }}"
+        role="progressbar"
+        aria-valuenow="{{ current }}"
+        aria-valuemin="{{ min }}"
+        aria-valuemax="{{ max }}"
+        style="width:{{ style }}%"
+    ></div>
+</div>

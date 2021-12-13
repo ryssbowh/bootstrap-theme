@@ -11,10 +11,10 @@ module.exports = {
   mode: env,
   devtool: env == 'development' ? 'source-map' : false,
   entry: {
-    cp: Path.resolve(__dirname, 'assets/src/cp.js')
+    cp: Path.resolve(__dirname, 'src/assets/src/cp.js')
   },
   output: {
-    path: Path.resolve(__dirname, 'assets/dist/cp')
+    path: Path.resolve(__dirname, 'src/assets/dist/cp')
   },
   optimization: {
     moduleIds: 'hashed',
