@@ -33,7 +33,8 @@ use Ryssbowh\CraftThemes\events\RegisterFieldDefaultDisplayerEvent;
 use Ryssbowh\CraftThemes\events\RegisterFieldDisplayerEvent;
 use Ryssbowh\CraftThemes\interfaces\ThemePreferencesInterface;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\AssetLinkOptions;
-use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\EntryLinkOptions;
+use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\ElementLinkOptions;
+use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\ElementLinksOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\TagLabelOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\UrlLinkOptions;
 use Ryssbowh\CraftThemes\models\fields\ElementUrl;
@@ -130,6 +131,7 @@ class Theme extends ThemePlugin
      */
     public function afterThemeInstall()
     {
+        $this->settings->writeRootFile();
         if ($this->hasDataInstalled()) {
             return;
         }
@@ -220,13 +222,13 @@ class Theme extends ThemePlugin
     protected function modifyDisplayers()
     {
         $_this = $this;
-        Event::on(EntryLinkOptions::class, EntryLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
+        Event::on(ElementLinkOptions::class, ElementLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
             $_this->addButtonOptions($e);
         });
         Event::on(UrlLinkOptions::class, UrlLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
             $_this->addButtonOptions($e);
         });
-        Event::on(AssetLinkOptions::class, AssetLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
+        Event::on(ElementLinksOptions::class, ElementLinksOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
             $_this->addButtonOptions($e);
         });
         Event::on(LinkOptions::class, LinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
