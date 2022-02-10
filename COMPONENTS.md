@@ -44,7 +44,7 @@ All this components are templates that can also be extended from, see [there](sr
     popover_content: false,  //text/html
     tooltip: false,  //text/html
     html_tooltip: false,
-    placement: 'right',  //relates to tooltips and popovers
+    placement: 'right',
     dismiss_popover_on_click: false
 }) }}
 ```
@@ -67,6 +67,25 @@ All this components are templates that can also be extended from, see [there](sr
     body: null,
     footer: false, //false to display a default footer, text/html otherwise
 }) }}
+```
+Gain more control by extending the template :
+
+```
+{% extends 'components/modal' %}
+
+{% set static = false %}
+
+{% block header %}
+    <h2>Title</h2>
+{% endblock %}
+
+{% block body %}
+    <p>Content</p>
+{% endblock %}
+
+{% block footer %}
+    <p>Footer</p>
+{% endblock %}
 ```
 
 ## Nav
@@ -113,8 +132,23 @@ All this components are templates that can also be extended from, see [there](sr
     body_backdrop: false,
     label_id: null, //Will be equal to id-'label' if not set
     header: false, //false to display a default header, text/html otherwise
-    body: null
+    body: null     //text/html
 }) }}
+```
+Gain more control by extending the template :
+
+```
+{% extends 'components/offcanvas' %}
+
+{% set position = 'start' %}
+
+{% block header %}
+    <h2>Title</h2>
+{% endblock %}
+
+{% block body %}
+    <p>Content</p>
+{% endblock %}
 ```
 
 ## Pagination
