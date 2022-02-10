@@ -1,4 +1,4 @@
-# Bootstrap Theme for Craft 3.5
+# Bootstrap Theme for Craft themes 3.x
 
 This is an example theme for [Craft Themes](https://plugins.craftcms.com/themes) based on Boostrap 5 (5.1.3), while it works as is, it's mostly intended to be inherited from by your custom theme(s) as its css/js developments are minimal.
 
