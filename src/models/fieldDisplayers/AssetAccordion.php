@@ -13,7 +13,7 @@ class AssetAccordion extends AssetRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'asset_accordion';
+    public static $handle = 'asset-accordion';
 
     /**
      * @inheritDoc

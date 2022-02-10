@@ -12,7 +12,7 @@ class MatrixAccordion extends MatrixDefault
     /**
      * @inheritDoc
      */
-    public static $handle = 'matrix_accordion';
+    public static $handle = 'matrix-accordion';
 
     /**
      * @inheritDoc

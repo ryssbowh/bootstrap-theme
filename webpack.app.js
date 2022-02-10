@@ -11,8 +11,7 @@ module.exports = {
   mode: env,
   devtool: env == 'development' ? 'source-map' : false,
   entry: {
-    app: Path.resolve(__dirname, 'src/assets/src/app.js'),
-    highlight: Path.resolve(__dirname, 'src/assets/src/highlight.js')
+    app: Path.resolve(__dirname, 'src/assets/src/app.js')
   },
   output: {
     path: Path.resolve(__dirname, 'src/assets/dist/app')
@@ -56,23 +55,23 @@ module.exports = {
         }
       },
       {
-        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.woff(\?.*)?$/,
         loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
       }, {
-        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.woff2(\?.*)?$/,
         loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
       }, {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.ttf(\?.*)?$/,
         loader: "url-loader?limit=10000&mimetype=application/octet-stream&name=[path][name].[ext]"
       }, {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.eot(\?.*)?$/,
         loader: "file-loader?name=[path][name].[ext]"
       }, {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.svg(\?.*)?$/,
         loader: "url-loader?limit=10000&mimetype=image/svg+xml&name=[path][name].[ext]"
       }, {
         test: /\.(ico|jpg|jpeg|png|gif)(\?.*)?$/,
-        loader: 'url-loader?name=[path][name].[ext]&limit=10000'
+        loader: 'url-loader?name=[path][name].[ext]&limit=0'
       }, {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -104,15 +103,15 @@ module.exports = {
               }
             }
           },
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: [
-                Path.resolve(__dirname, 'src/assets/src/scss/resources.scss'),
-                Path.resolve(__dirname, 'src/assets/src/scss/mixins.scss'),
-              ]
-            },
-          }
+          // {
+          //   loader: 'sass-resources-loader',
+          //   options: {
+          //     resources: [
+          //       Path.resolve(__dirname, 'src/assets/src/scss/resources.scss'),
+          //       Path.resolve(__dirname, 'src/assets/src/scss/mixins.scss'),
+          //     ]
+          //   },
+          // }
         ]
       }
     ]

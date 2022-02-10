@@ -12,7 +12,7 @@ class EntryCard extends EntryRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'entry_card';
+    public static $handle = 'entry-card';
 
     /**
      * @inheritDoc

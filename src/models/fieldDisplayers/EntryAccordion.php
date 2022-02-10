@@ -12,7 +12,7 @@ class EntryAccordion extends EntryRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'entry_accordion';
+    public static $handle = 'entry-accordion';
 
     /**
      * @inheritDoc

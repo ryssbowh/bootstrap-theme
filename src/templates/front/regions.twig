@@ -1,5 +1,5 @@
 <body class="{{ classes|raw }}"{% if attributes.size() %} {{ attributes|raw }}{% endif %}>
-    <header class="py-3 py-lg-5 bg-header text-white">
+    <header class="py-3 py-lg-5 bg-header">
         <div class="container">
             <div class="row">
                 {{ layout.getRegion('before-header').render()|raw }}
@@ -13,7 +13,6 @@
     <main class="py-3 py-lg-5">
         {{ layout.getRegion('banner').render()|raw }}
         <div class="container">
-            {{ layout.getRegion('before-content').render()|raw }}
             <div class="row">
                 {% set col = 'col-12' %}
                 {% if layout.getRegion('sidebar').hasVisibleBlocks() %}
@@ -25,11 +24,11 @@
                 <div class="{{ col }}">
                     {{ layout.getRegion('content').render()|raw }}
                 </div>
+                {{ layout.getRegion('after-content').render()|raw }}
             </div>
-            {{ layout.getRegion('after-content').render()|raw }}
         </div>
     </main>
-    <footer class="py-2 bg-footer text-white">
+    <footer class="py-2 bg-footer">
         <div class="container">
             <div class="row align-items-center">
                 {{ layout.getRegion('before-footer').render()|raw }}

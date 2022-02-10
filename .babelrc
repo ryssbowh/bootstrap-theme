@@ -1,22 +1,4 @@
 {
-  "env": {
-    "webpack": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "usage",
-            "corejs": "3.0.0"
-          }
-        ]
-      ],
-      "plugins": [
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-proposal-class-properties"
-      ]
-    },
-    "gulp": {
-      "presets": ["es2015"]
-    }
-  }
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-proposal-class-properties"]
 }

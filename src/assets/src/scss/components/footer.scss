@@ -1,5 +1,5 @@
 .bg-footer {
-    background-color: var(--footer-bg);
+    background-color: $primary;
 }
 
 @media all and (max-width: map-get($grid-breakpoints, lg)) {

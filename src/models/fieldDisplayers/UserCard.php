@@ -12,7 +12,7 @@ class UserCard extends UserRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'user_card';
+    public static $handle = 'user-card';
 
     /**
      * @inheritDoc

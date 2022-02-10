@@ -1,15 +1,20 @@
 {
   "name": "ryssbowh/bootstrap-theme",
-  "description": "Responsive theme based on Bootstrap 5",
+  "description": "Theme for Craft CMS based on Bootstrap 5",
   "type": "craft-plugin",
-  "version": "1.0",
+  "keywords": [
+      "cms",
+      "craftcms",
+      "theme",
+      "themes",
+      "bootstrap"
+  ],
   "autoload": {
     "psr-4": {
       "Ryssbowh\\BootstrapTheme\\": "src/"
     }
   },
   "require": {
-    "ozdemirburak/iris": "^2.4",
     "ryssbowh/craft-themes": "^3.0"
   },
   "extra": {

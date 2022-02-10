@@ -1,10 +1,11 @@
 <?php
 namespace Ryssbowh\BootstrapTheme;
 
+use Ryssbowh\CraftThemes\base\ThemePreferences as BaseThemePreferences;
+use Ryssbowh\CraftThemes\interfaces\BlockInterface;
 use Ryssbowh\CraftThemes\interfaces\FieldInterface;
 use Ryssbowh\CraftThemes\interfaces\GroupInterface;
 use Ryssbowh\CraftThemes\interfaces\RegionInterface;
-use Ryssbowh\CraftThemes\base\ThemePreferences as BaseThemePreferences;
 
 class ThemePreferences extends BaseThemePreferences
 {
@@ -66,5 +67,13 @@ class ThemePreferences extends BaseThemePreferences
     public function getRegionClasses(RegionInterface $region): array
     {
         return array_merge(parent::getRegionClasses($region), $this->_regionClasses[$region->handle] ?? []);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBlockClasses(BlockInterface $block): array
+    {
+        return array_merge(parent::getBlockClasses($block), ['mb-3']);
     }
 }

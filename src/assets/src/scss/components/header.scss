@@ -1,16 +1,13 @@
 .bg-header {
-    background-color: var(--header-bg);
+    background-color: $primary;
 }
 
 header {
     position: relative;
 }
 
-.block[data-handle=system-sitename] {
-    a {
-        text-decoration: none;
-        margin: 0;
-    }
+.block[data-handle=bootstrap-main-menu] .navbar-toggler {
+    z-index: 1101;
 }
 
 @media all and (max-width: map-get($grid-breakpoints, lg)) {
@@ -22,9 +19,6 @@ header {
             padding: 0;
         }
     }
-    .navbar-toggler {
-        z-index: 10001;
-    }
     #region-header-left {
         margin-bottom: 1rem;
     }
@@ -34,8 +28,8 @@ header {
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 10000;
-        background: var(--header-bg);
+        background: $primary;
+        z-index: 1100;
         .navbar-nav {
             position: absolute;
             top: 1rem;

@@ -12,7 +12,7 @@ class UserAccordion extends UserRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'user_accordion';
+    public static $handle = 'user-accordion';
 
     /**
      * @inheritDoc

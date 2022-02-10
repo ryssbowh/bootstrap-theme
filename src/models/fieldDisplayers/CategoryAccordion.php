@@ -12,7 +12,7 @@ class CategoryAccordion extends CategoryRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'category_accordion';
+    public static $handle = 'category-accordion';
 
     /**
      * @inheritDoc

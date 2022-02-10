@@ -2,26 +2,31 @@
 namespace Ryssbowh\BootstrapTheme;
 
 use Ryssbowh\BootstrapTheme\ThemePreferences;
-use Ryssbowh\BootstrapTheme\assets\bundles\CpAssets;
-use Ryssbowh\BootstrapTheme\assets\bundles\FrontAssets;
-use Ryssbowh\BootstrapTheme\assets\bundles\RootsAssets;
-use Ryssbowh\BootstrapTheme\assets\bundles\VendorAssets;
-use Ryssbowh\BootstrapTheme\events\CustomRootEvent;
+use Ryssbowh\BootstrapTheme\bundles\BootstrapJsAssets;
+use Ryssbowh\BootstrapTheme\bundles\CpAssets;
+use Ryssbowh\BootstrapTheme\bundles\FrontCssAssets;
+use Ryssbowh\BootstrapTheme\bundles\FrontJsAssets;
 use Ryssbowh\BootstrapTheme\models\Settings;
 use Ryssbowh\BootstrapTheme\models\blockProviders\BootstrapBlockProvider;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\AssetAccordion;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\AssetCard;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\AssetCarousel;
+use Ryssbowh\BootstrapTheme\models\fieldDisplayers\AssetListGroup;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\CategoryAccordion;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\CategoryCard;
+use Ryssbowh\BootstrapTheme\models\fieldDisplayers\CategoryListGroup;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\EntryAccordion;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\EntryCard;
+use Ryssbowh\BootstrapTheme\models\fieldDisplayers\EntryListGroup;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\MatrixAccordion;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\MatrixCard;
+use Ryssbowh\BootstrapTheme\models\fieldDisplayers\MatrixListGroup;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\TagBadge;
+use Ryssbowh\BootstrapTheme\models\fieldDisplayers\TagListGroup;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\UrlButton;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\UserAccordion;
 use Ryssbowh\BootstrapTheme\models\fieldDisplayers\UserCard;
+use Ryssbowh\BootstrapTheme\models\fieldDisplayers\UserListGroup;
 use Ryssbowh\CraftThemes\Themes;
 use Ryssbowh\CraftThemes\base\ThemePlugin;
 use Ryssbowh\CraftThemes\controllers\CpBlocksController;
@@ -35,14 +40,14 @@ use Ryssbowh\CraftThemes\interfaces\ThemePreferencesInterface;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\AssetLinkOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\ElementLinkOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\ElementLinksOptions;
+use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\EmailEmailOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\TagLabelOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\UrlLinkOptions;
 use Ryssbowh\CraftThemes\models\fields\ElementUrl;
 use Ryssbowh\CraftThemes\models\fileDisplayerOptions\LinkOptions;
+use Ryssbowh\CraftThemes\scss\Compiler;
 use Ryssbowh\CraftThemes\services\BlockProvidersService;
 use Ryssbowh\CraftThemes\services\FieldDisplayerService;
-use craft\fields\Tags;
-use craft\fields\Url;
 use craft\web\View;
 use yii\base\Event;
 
@@ -63,9 +68,10 @@ class Theme extends ThemePlugin
      */
     protected $assetBundles = [
         '*' => [
-            VendorAssets::class,
-            FrontAssets::class,
-            RootsAssets::class,
+            BootstrapJsAssets::class,
+            FrontCssAssets::class,
+            // WebpackFrontAssets::class,
+            FrontJsAssets::class,
         ]
     ];
 
@@ -103,7 +109,13 @@ class Theme extends ThemePlugin
     public function afterSaveSettings()
     {
         parent::afterSaveSettings();
-        $this->settings->writeRootFile();
+        $this->settings->writeScssResourceFile();
+        if ($this->settings->rebuildScssOnSettings) {
+            $compiler = $this->scssCompiler;
+            $compiler->compile([
+                'assets/src/scss/app.scss' => 'app.css'
+            ], $this->basePath);
+        }
     }
 
     /**
@@ -111,18 +123,16 @@ class Theme extends ThemePlugin
      */
     public function getSettingsResponse()
     {
-        $view = \Craft::$app->getView();
-        $namespace = $view->getNamespace();
-        $view->setNamespace('settings');
-        $settingsHtml = $this->settingsHtml();
-        $view->setNamespace($namespace);
-
         $controller = \Craft::$app->controller;
 
-        return $controller->renderTemplate('settings/plugins/_settings', [
+        return $controller->renderTemplate('bootstrap-theme/cp/settings', [
             'plugin' => $this,
-            'mainFormAttributes' => ['enctype' => "multipart/form-data"],
-            'settingsHtml' => $settingsHtml,
+            'mainFormAttributes' => [
+                'enctype' => "multipart/form-data",
+                'autocomplete' => 'off'
+            ],
+            'settings' => $this->settings,
+            'plugin' => $this
         ]);
     }
 
@@ -131,7 +141,7 @@ class Theme extends ThemePlugin
      */
     public function afterThemeInstall()
     {
-        $this->settings->writeRootFile();
+        $this->settings->writeScssResourceFile(true);
         if ($this->hasDataInstalled()) {
             return;
         }
@@ -172,6 +182,9 @@ class Theme extends ThemePlugin
         ]);
         $defaultLayout->addBlock($block, 'footer-left');
         Themes::$plugin->layouts->save($defaultLayout);
+        Themes::$plugin->layouts->copyIntoCustom($defaultLayout, '404', '404');
+        Themes::$plugin->layouts->copyIntoCustom($defaultLayout, '500', '500');
+        Themes::$plugin->layouts->copyIntoCustom($defaultLayout, '503', '503');
     }
 
     /**
@@ -211,7 +224,13 @@ class Theme extends ThemePlugin
                 CategoryCard::class,
                 EntryCard::class,
                 UserCard::class,
-                MatrixCard::class
+                MatrixCard::class,
+                AssetListGroup::class,
+                CategoryListGroup::class,
+                EntryListGroup::class,
+                UserListGroup::class,
+                TagListGroup::class,
+                MatrixListGroup::class,
             ]);
         });
     }
@@ -223,6 +242,9 @@ class Theme extends ThemePlugin
     {
         $_this = $this;
         Event::on(ElementLinkOptions::class, ElementLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
+            $_this->addButtonOptions($e);
+        });
+        Event::on(EmailEmailOptions::class, EmailEmailOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
             $_this->addButtonOptions($e);
         });
         Event::on(UrlLinkOptions::class, UrlLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
@@ -319,20 +341,7 @@ class Theme extends ThemePlugin
      */
     protected function getPreviewImagePath(): ?string
     {
-        return realpath($this->basePath . "/../images/preview.png");
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function settingsHtml()
-    {
-        $settings = $this->settings;
-        return \Craft::$app->view->renderTemplate('bootstrap-theme/cp/settings', [
-            'settings' => $settings,
-            'roots' => $settings->rootsDefinitions,
-            'fonts' => $settings->allFontsLabels
-        ]);
+        return realpath($this->basePath . "/assets/images/preview.png");
     }
 
     /**

@@ -12,7 +12,7 @@ class MatrixCard extends MatrixDefault
     /**
      * @inheritDoc
      */
-    public static $handle = 'matrix_card';
+    public static $handle = 'matrix-card';
 
     /**
      * @inheritDoc

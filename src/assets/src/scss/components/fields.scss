@@ -19,14 +19,14 @@
             color: $primary;
         }
     }
-    &[data-displayer=colour_default] {
+    &[data-displayer=colour-default] {
         .colour {
             width: 40px;
             height: 40px;
             border-radius: 100%;
         }
     }
-    &[data-displayer=matrix_slick], &[data-displayer=entry_slick], &[data-displayer=category_slick], &[data-displayer=user_slick], &[data-displayer=tag_slick] {
+    &[data-displayer$=-slick] {
         & > .field-content {
             padding: 0 25px;
             .slick-prev {

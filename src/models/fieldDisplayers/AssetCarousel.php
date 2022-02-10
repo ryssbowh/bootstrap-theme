@@ -14,7 +14,7 @@ class AssetCarousel extends AssetRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'asset_carousel';
+    public static $handle = 'asset-carousel';
 
     /**
      * @inheritDoc

@@ -12,7 +12,7 @@ class CategoryCard extends CategoryRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'category_card';
+    public static $handle = 'category-card';
 
     /**
      * @inheritDoc

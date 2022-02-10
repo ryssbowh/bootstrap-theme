@@ -13,7 +13,7 @@ class AssetCard extends AssetRendered
     /**
      * @inheritDoc
      */
-    public static $handle = 'asset_card';
+    public static $handle = 'asset-card';
 
     /**
      * @inheritDoc

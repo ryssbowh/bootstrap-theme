@@ -3,29 +3,36 @@ namespace Ryssbowh\BootstrapTheme\models;
 
 use Ryssbowh\BootstrapTheme\Theme;
 use Ryssbowh\BootstrapTheme\events\SettingsEvent;
-use Ryssbowh\BootstrapTheme\helpers\ColorHelper;
+use Ryssbowh\BootstrapTheme\exceptions\BootstrapSettingsException;
+use Ryssbowh\BootstrapTheme\interfaces\BootstrapSettingsInterface;
 use craft\base\Model;
 use craft\helpers\FileHelper;
+use craft\helpers\StringHelper;
 use craft\web\UploadedFile;
 
 class Settings extends Model
 {
-    const EVENT_SETTINGS = 'bootstrap-theme-settings';
-    
+    const EVENT_SETTINGS = 'event-settings';
+
     /**
-     * @var array
+     * @var boolean
      */
-    public $roots = [];
+    public $compileScss = true;
+
+    /**
+     * @var boolean
+     */
+    public $rebuildScssOnSettings = true;
 
     /**
      * @var array
      */
-    public $customRoots = [];
+    public $variables = [];
 
     /**
      * @var array
      */
-    public $fonts = ['Roboto'];
+    public $fonts = [];
 
     /**
      * @var string
@@ -48,9 +55,14 @@ class Settings extends Model
     public $deleteFavicon;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $_rootsDefinitions;
+    public $resourceFilePath = '@Ryssbowh/BootstrapTheme/assets/src/scss/resources-settings.scss';
+
+    /**
+     * @var string
+     */
+    public $scssEntryPoint = 'assets/src/scss/app.scss';
 
     /**
      * @var array
@@ -60,29 +72,50 @@ class Settings extends Model
     /**
      * @var array
      */
-    protected $_defaultRoots = [
-        'bs-body-color' => '#212529',
-        'bs-body-bg' => '#ffffff',
-        'bs-body-font-size' => '1rem',
-        'bs-body-font-weight' => 400,
-        'bs-body-line-height' => 1.5,
-        'bs-body-font-family' => 'Ubuntu',
-        'header-bg' => '#0d6efd',
-        'footer-bg' => '#0d6efd',
-    ];
+    protected $_settings;
 
     /**
-     * @var string
+     * Get a bootstrap settings class or all of them
+     * 
+     * @param  string|null $handle
+     * @return array|BootstrapSettingsInterface|null
      */
-    public $codeTheme = 'default-dark';
-
-    /**
-     * @inheritDoc
-     */
-    public function __construct($config = [])
+    public function getSettings(?string $handle = null)
     {
-        $this->roots = $this->_defaultRoots;
-        parent::__construct($config);
+        if ($this->_settings === null) {
+            $this->registerSettings();
+        }
+        return $handle ? $this->_settings[$handle] ?? null : $this->_settings;
+    }
+
+    /**
+     * Get settings tabs
+     * 
+     * @return array
+     */
+    public function getTabs(): array
+    {
+        $tabs = [];
+        foreach ($this->getSettings() as $handle => $settings) {
+            $tabs[$handle] = [
+                'label' => $settings->getName(),
+                'url' => '#settings-' . $handle
+            ];
+        }
+        return $tabs;
+    }
+
+    /**
+     * get the fonts definitions
+     * 
+     * @return array
+     */
+    public function getFontsDefinitions(): array
+    {
+        if ($this->_fontsDefinitions === null) {
+            $this->registerSettings();
+        }
+        return $this->_fontsDefinitions;
     }
 
     /**
@@ -91,7 +124,6 @@ class Settings extends Model
     public function defineRules(): array
     {
         return [
-            [['roots', 'customRoots', 'fonts'], 'safe'],
             ['logo', 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png', 'svg']],
             ['favicon', 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png', 'svg', 'ico']],
             ['deleteLogo', function () {
@@ -157,61 +189,34 @@ class Settings extends Model
     }
 
     /**
-     * Get default css roots
-     * 
-     * @return array
-     */
-    public function getDefaultRoots(): array
-    {
-        return $this->_defaultRoots;
-    }
-
-    /**
-     * Get css root definitions
-     * 
-     * @return array
-     */
-    public function getRootsDefinitions(): array
-    {
-        if ($this->_rootsDefinitions === null) {
-            $this->registerSettings();
-        }
-        return $this->_rootsDefinitions;
-    }
-
-    /**
-     * Get font definitions
-     * 
-     * @return array
-     */
-    public function getFontsDefinitions(): array
-    {
-        if ($this->_fontsDefinitions === null) {
-            $this->registerSettings();
-        }
-        return $this->_fontsDefinitions;
-    }
-
-    /**
      * Write css root file in the @themesWebPath folder
      */
-    public function writeRootFile()
+    public function writeScssResourceFile(bool $useDefaults = false)
     {
-        $roots = [];
-        foreach ($this->roots as $name => $value) {
-            $roots[] = "\t--$name: " . ColorHelper::convertNamedColor($name, $value) . ';';
-        }
-        foreach ($this->rootsDefinitions as $section => $customs) {
-            foreach ($customs as $name => $custom) {
-                if ($custom['type'] == 'color') {
-                    $roots[] = "\t--$name: " . ColorHelper::convertNamedColor($name, $this->customRoots[$name]) . ';';
+        $content = '@import "~bootstrap/scss/_functions.scss";' . "\n";
+        foreach ($this->settings as $namespace => $setting) {
+            foreach ($setting->definitions as $name => $definition) {
+                $value = $useDefaults ? ($this->variables[$name] ?? $definition['value'] ?? null) : ($this->variables[$name] ?? null);
+                $isRgba = ($definition['type'] == 'selectrgba');
+                if ($isRgba and !($value['color'] ?? false)) {
+                    continue;
+                }
+                if (!$value) {
+                    continue;
+                }
+                if ($definition['type'] == 'color' and !StringHelper::startsWith($value, '#')) {
+                    $value = '#' . $value;
+                }
+                if (isset($definition['valueCallback'])) {
+                    $content .= "\$" . $name . ': ' . $definition['valueCallback']($value, $this) . ";\n";
+                } elseif($isRgba) {
+                    $content .= "\$" . $name . ': rgba(' . $value['color'] . ', ' . ($value['opacity'] ?? 1) . ");\n";
                 } else {
-                    $roots[] = "\t--$name: $value;";
+                    $content .= "\$" . $name . ': ' . $value . ($def['options']['unit'] ?? '') . ";\n";
                 }
             }
         }
-        $content = ":root {\n" . implode("\n", $roots) . "\n}";
-        FileHelper::writeToFile(\Craft::getAlias('@themesWebPath/bootstrap-theme/roots.css'), $content);
+        FileHelper::writeToFile(\Craft::getAlias($this->resourceFilePath), $content);
     }
 
     /**
@@ -221,7 +226,16 @@ class Settings extends Model
     {
         $event = new SettingsEvent;
         $this->trigger(self::EVENT_SETTINGS, $event);
-        $this->_rootsDefinitions = $event->customs;
+        $defined = [];
+        foreach ($event->all() as $settings) {
+            foreach ($settings->definitions as $name => $def) {
+                if (isset($defined[$name])) {
+                    throw BootstrapSettingsException::defined($settings->getName(), $name, $defined[$name]);
+                }
+                $defined[$name] = $settings->getName();
+            }
+        }
+        $this->_settings = $event->all();
         $this->_fontsDefinitions = $event->fonts;
     }
 
@@ -230,13 +244,38 @@ class Settings extends Model
      * 
      * @return aray
      */
-    public function getAllFontsLabels(): array
+    public function getAllFontsLabels(bool $withDefault = true): array
     {
         $fonts = [];
-        foreach ($this->fontsDefinitions as $font) {
+        foreach ($this->getFontsDefinitions() as $font) {
             $fonts = array_merge($fonts, $font['fonts']);
         }
-        return array_combine($fonts, $fonts);
+        $fonts = array_combine($fonts, $fonts);
+        return $withDefault ? ['' => \Craft::t('bootstrap-theme', 'Default')] + $fonts : $fonts;
+    }
+
+    /**
+     * Get defined colors labels indexed by color names
+     * 
+     * @return aray
+     */
+    public function getBaseColorsLabels(string $color, bool $includeDefault): array
+    {
+        $colors = [];
+        foreach ($this->getSettings('colors')->definitions as $name => $definition) {
+            if ($color == $name) {
+                //Let's not show colors that are defined after the current color, or the compiling will fail
+                break;
+            }
+            $colors['$' . $name] = $definition['options']['label'] ?? '**no label**';
+        }
+        asort($colors);
+        $defaults = [];
+        if ($includeDefault) {
+            $defaults[''] = \Craft::t('bootstrap-theme', 'Default');
+        }
+        $defaults['transparent'] = \Craft::t('bootstrap-theme', 'Transparent');
+        return $defaults + $colors;
     }
 
     /**
@@ -244,39 +283,20 @@ class Settings extends Model
      */
     public function registerFont()
     {
-        if (!isset($this->roots['bs-body-font-family'])) {
-            return;
-        }
-        $url = null;
-        foreach ($this->fontsDefinitions as $font) {
-            if (in_array($this->roots['bs-body-font-family'], $font['fonts'])) {
-                $url = $font['url'];
-                break;
+        $registered = [];
+        $domains = [];
+        foreach ($this->fontsDefinitions as $definition) {
+            foreach ($this->fonts as $font) {
+                if(in_array($font, $definition['fonts']) and !in_array($definition['url'], $registered)) {
+                    $parsed = parse_url($definition['url']);
+                    $domain = $parsed['scheme'] . '://' . $parsed['host'];
+                    if (!in_array($domain, $domains)) {
+                        \Craft::$app->view->registerLinkTag(['rel' => 'preconnect', 'href' => $domain]);
+                        $domains[] = $domain;
+                    }
+                    \Craft::$app->view->registerLinkTag(['href' => $definition['url'], 'crossorigin' => true, 'rel' => 'stylesheet']);
+                }
             }
         }
-        if (!$url) {
-            return;
-        }
-        $parsed = parse_url($url);
-        \Craft::$app->view->registerLinkTag(['rel' => 'preconnect', 'href' => $parsed['scheme'] . '://' . $parsed['host']], 'bootstrap-font-pre');
-        \Craft::$app->view->registerLinkTag(['href' => $url, 'crossorigin' => true, 'rel' => 'stylesheet'], 'bootstrap-font');
-    }
-
-    /**
-     * Get all defined highlight themes for code displayer 
-     * 
-     * @return array
-     */
-    public function getCodeThemes(): array
-    {
-        $folder = \Craft::getAlias('@Ryssbowh/BootstrapTheme/assets/lib/highlight-11.3.1/styles');
-        $files = glob($folder . '/*');
-        $themes = [];
-        foreach ($files as $file) {
-            $file = str_replace($folder . '/', '', $file);
-            $file = str_replace('.min.css', '', $file);
-            $themes[$file] = $file;
-        }
-        return $themes;
     }
 }
