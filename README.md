@@ -21,7 +21,7 @@ Here are the regions defined by this theme :
 
 A new block provider (Bootstrap theme) is defined by this plugin, with 3 new blocks in it:
 
-- PoweredByBootstrap: a simple link to boostrap page, installed by default in the region 'Footer right'
+- PoweredByBootstrap: a simple link to bootstrap page, installed by default in the region 'Footer right'
 - MainMenu: More an example than anything, installed in the 'Header middle' region, its template can be overridden like any other block
 - FooterMenu: More an example than anything, installed in the 'Footer left' region, its template can be overridden like any other block
 
