@@ -7,11 +7,23 @@ This theme could be easily extend from in a custom theme of yours if you needed 
 
 This theme requires Craft Themes 3.x in Pro edition to use all its features but can be used in lite version too.
 
+## Installation
+
+- `composer required ryssbowh/bootstrap-theme`
+
 ## Regions
 
 Here are the regions defined by this theme :
 
 ![Regions](images/regions.png)
+
+## Blocks
+
+A new block provider (Bootstrap theme) is defined by this plugin, with 3 new blocks in it:
+
+- PoweredByBootstrap: a simple link to boostrap page, installed by default in the region 'Footer right'
+- MainMenu: More an example than anything, installed in the 'Header middle' region, its template can be overridden like any other block
+- FooterMenu: More an example than anything, installed in the 'Footer left' region, its template can be overridden like any other block
 
 ## Settings
 
@@ -27,7 +39,7 @@ After changing this settings the scss must be recompiled for changes to take eff
 - Keep auto compilation either when you change settings or when the frontend is reloaded
 - If you have a theme that extends from this plugin, simply import the generated file in your custom scss, the file will be found using scss file import inheritance.
 
-You can add extra scss variables you may need to those settings through events :
+You can add your own scss variables tab in the settings through events :
 
 ```
 use Ryssbowh\BootstrapTheme\models\Settings;
