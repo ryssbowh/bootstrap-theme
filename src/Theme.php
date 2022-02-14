@@ -113,7 +113,7 @@ class Theme extends ThemePlugin
         if ($this->settings->rebuildScssOnSettings) {
             $compiler = $this->scssCompiler;
             $compiler->compile([
-                'assets/src/scss/app.scss' => 'app.css'
+                $this->settings->scssEntryPoint => 'app.css'
             ], $this->basePath);
         }
     }
