@@ -1,10 +1,15 @@
 # Bootstrap Theme for Craft themes 3.x
 
-This is an example theme for [Craft Themes](https://plugins.craftcms.com/themes) based on Boostrap 5 (5.1.3), while it works as is, it's mostly intended to be inherited from by your custom theme(s) as its css/js developments are minimal.
+This is an example theme for [Craft Themes](https://plugins.craftcms.com/themes) based on Boostrap 5 (5.1.3).
 
-This theme requires Craft Themes in Pro edition to use all its features but can be used in lite version too.
+This theme harness the power of bootstrap into a reusable theme, most bootstrap variables are changeable in the backend and the theme integrate to bootstrap's components through its templates.  
+This theme could be easily extend from in a custom theme of yours if you needed more control on the templates, using themes [templates inheritance](https://github.com/ryssbowh/craft-themes/wiki/Developers#templating-pro) and on the css/js which are kept to a minimum on purpose to keep options open.
+
+This theme requires Craft Themes 3.x in Pro edition to use all its features but can be used in lite version too.
 
 ## Regions
+
+Here are the regions defined by this theme :
 
 ![Regions](images/regions.png)
 
