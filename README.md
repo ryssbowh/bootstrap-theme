@@ -30,6 +30,11 @@ A new block provider (Bootstrap theme) is defined by this plugin, with 3 new blo
 - MainMenu: More an example than anything, installed in the 'Header middle' region, its template can be overridden like any other block
 - FooterMenu: More an example than anything, installed in the 'Footer left' region, its template can be overridden like any other block
 
+## 404, 500, 503 pages
+
+Those 3 pages have a custom layout defined, which is manually loaded in their associated templates (404.twig, 500.twig and 503.twig).  
+Their content is overridden by the templates `blocks/custom_404_system-content.twig`, `blocks/custom_500_system-content` and `blocks/custom_503_system-content`
+
 ## Settings
 
 ### Scss
