@@ -9,7 +9,12 @@ This theme requires Craft Themes 3.x in Pro edition to use all its features but 
 
 ## Installation
 
-- `composer required ryssbowh/bootstrap-theme`
+You can install this theme as a composer package and have [your own theme](https://github.com/ryssbowh/craft-themes/wiki/Developers#creating-a-new-theme) extend from it
+
+- `composer require ryssbowh/bootstrap-theme`
+
+Or download it whole from this page and install it into your own theme folder. The previous link will show you how.  
+Installing it like so will allow you to modify templates directly without having to define your own theme.
 
 ## Regions
 
