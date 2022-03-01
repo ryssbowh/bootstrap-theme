@@ -1,6 +1,7 @@
 {
   "name": "ryssbowh/bootstrap-theme",
   "description": "Theme for Craft CMS based on Bootstrap 5",
+  "license": "MIT",
   "type": "craft-plugin",
   "keywords": [
       "cms",
