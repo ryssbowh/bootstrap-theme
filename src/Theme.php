@@ -142,9 +142,6 @@ class Theme extends ThemePlugin
     public function afterThemeInstall()
     {
         $this->settings->writeScssResourceFile(true);
-        if ($this->hasDataInstalled()) {
-            return;
-        }
         $defaultLayout = Themes::$plugin->layouts->getDefault('bootstrap-theme');
         $block = Themes::$plugin->blocks->create([
             'provider' => 'system',
