@@ -12,6 +12,7 @@ class MatrixCardOptions extends FieldDisplayerOptions
     public function defineOptions(): array
     {
         $matrix = $this->displayer->field;
+        $options = [];
         foreach ($matrix->types as $type) {
             $items = [];
             foreach ($type->fields as $field) {
