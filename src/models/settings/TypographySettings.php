@@ -24,7 +24,7 @@ class TypographySettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'body-text-align' => [

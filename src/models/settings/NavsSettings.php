@@ -24,7 +24,7 @@ class NavsSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'nav-link-padding-y' => [

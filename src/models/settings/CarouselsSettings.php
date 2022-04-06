@@ -24,7 +24,7 @@ class CarouselsSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'carousel-control-color' => [
