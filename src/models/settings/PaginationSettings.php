@@ -24,7 +24,7 @@ class PaginationSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'pagination-padding-y' => [

@@ -24,7 +24,7 @@ class PopoversSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'popover-bg' => [

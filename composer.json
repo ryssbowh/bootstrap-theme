@@ -16,7 +16,7 @@
     }
   },
   "require": {
-    "ryssbowh/craft-themes": "^3.0"
+    "ryssbowh/craft-themes": "^3.0 || @dev"
   },
   "extra": {
     "name": "Bootstrap Theme",

@@ -24,7 +24,7 @@ class FormsSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'form-text-margin-top' => [

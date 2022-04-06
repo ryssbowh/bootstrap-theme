@@ -24,7 +24,7 @@ class ButtonsSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'btn-padding-y' => [

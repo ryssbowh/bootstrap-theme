@@ -48,6 +48,7 @@ use Ryssbowh\CraftThemes\models\fileDisplayerOptions\LinkOptions;
 use Ryssbowh\CraftThemes\scss\Compiler;
 use Ryssbowh\CraftThemes\services\BlockProvidersService;
 use Ryssbowh\CraftThemes\services\FieldDisplayerService;
+use craft\base\Model;
 use craft\web\View;
 use yii\base\Event;
 
@@ -61,7 +62,7 @@ class Theme extends ThemePlugin
     /**
      * @inheritDoc
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     /**
      * @inheritDoc
@@ -78,7 +79,7 @@ class Theme extends ThemePlugin
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         $this::$plugin = $this;
@@ -106,7 +107,7 @@ class Theme extends ThemePlugin
     /**
      * @inheritDoc
      */
-    public function afterSaveSettings()
+    public function afterSaveSettings(): void
     {
         parent::afterSaveSettings();
         $this->settings->writeScssResourceFile();
@@ -121,7 +122,7 @@ class Theme extends ThemePlugin
     /**
      * @inheritdoc
      */
-    public function getSettingsResponse()
+    public function getSettingsResponse(): mixed
     {
         $controller = \Craft::$app->controller;
 
@@ -344,7 +345,7 @@ class Theme extends ThemePlugin
     /**
      * @inheritDoc
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new Settings;
     }

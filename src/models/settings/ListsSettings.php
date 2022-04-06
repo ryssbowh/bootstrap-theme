@@ -24,7 +24,7 @@ class ListsSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'list-group-color' => [

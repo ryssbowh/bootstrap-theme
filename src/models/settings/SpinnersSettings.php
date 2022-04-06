@@ -24,7 +24,7 @@ class SpinnersSettings extends BootstrapSettings
     /**
      * @inheritDoc
      */
-    public function init()
+    public function init(): void
     {
         $this->definitions = [
             'spinner-width' => [
