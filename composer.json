@@ -16,7 +16,7 @@
     }
   },
   "require": {
-    "ryssbowh/craft-themes": "^3.0 || @dev"
+    "ryssbowh/craft-themes": "^4.0.0-beta.1"
   },
   "extra": {
     "name": "Bootstrap Theme",

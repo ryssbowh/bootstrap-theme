@@ -1,5 +1,10 @@
 # ryssbowh/bootsrtap-theme Changelog
 
+## 2.0.0 - unreleased
+
+### Changed
+- Craft 4 support
+
 ## 1.0.1 - 2021-03-01
 
 ### Fixed
