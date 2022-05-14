@@ -1,4 +1,4 @@
-# Bootstrap Theme for Craft themes 3.x
+# Bootstrap Theme for Craft themes 3.x/4.x
 
 This is an example theme for [Craft Themes](https://plugins.craftcms.com/themes) based on Boostrap 5 (5.1.3).
 
@@ -11,7 +11,8 @@ This theme requires Craft Themes 3.x in Pro edition to use all its features but 
 
 You can install this theme as a composer package and have [your own theme](https://github.com/ryssbowh/craft-themes/wiki/Developers#creating-a-new-theme) extend from it
 
-- `composer require ryssbowh/bootstrap-theme`
+- `composer require ryssbowh/bootstrap-theme:^1.0` if you're using Craft 3.x
+- `composer require ryssbowh/bootstrap-theme:^2.0` if you're using Craft 4.x
 
 Or download it whole from this page and install it into your own theme folder. The previous link will show you how.  
 Installing it like so will allow you to modify templates directly without having to define your own theme.
