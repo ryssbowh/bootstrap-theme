@@ -9,9 +9,9 @@
                     size: options.size,
                     outlined: options.outlined,
                     color: options.color,
-                    label: options.label == 'title' ? element.title : options.custom,
+                    label: options.label == 'title' ? element.title : (options.label == 'filename' ? element.filename : options.custom),
                     newTab: options.newTab,
-                    download: false,
+                    download: options.hasOption('download') and options.download,
                     link: element.url
                 }) }}
             {% else %}

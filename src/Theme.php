@@ -38,6 +38,7 @@ use Ryssbowh\CraftThemes\events\RegisterFieldDefaultDisplayerEvent;
 use Ryssbowh\CraftThemes\events\RegisterFieldDisplayerEvent;
 use Ryssbowh\CraftThemes\interfaces\ThemePreferencesInterface;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\AssetLinkOptions;
+use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\AssetLinksOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\ElementLinkOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\ElementLinksOptions;
 use Ryssbowh\CraftThemes\models\fieldDisplayerOptions\EmailEmailOptions;
@@ -239,6 +240,9 @@ class Theme extends ThemePlugin
     {
         $_this = $this;
         Event::on(ElementLinkOptions::class, ElementLinkOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
+            $_this->addButtonOptions($e);
+        });
+        Event::on(AssetLinksOptions::class, AssetLinksOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {
             $_this->addButtonOptions($e);
         });
         Event::on(EmailEmailOptions::class, EmailEmailOptions::EVENT_OPTIONS_DEFINITIONS, function (DefinableOptionsDefinitions $e) use ($_this) {

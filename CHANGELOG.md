@@ -1,5 +1,10 @@
 # ryssbowh/bootsrtap-theme Changelog
 
+## 1.0.3 - 2022-05-26
+
+### Fixed
+- Support for new asset links displayer introduced in Themes 3.2
+
 ## 1.0.2 - 2022-05-26
 
 ### Fixed
