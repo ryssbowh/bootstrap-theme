@@ -1,5 +1,10 @@
 # ryssbowh/bootsrtap-theme Changelog
 
+## 1.0.2 - 2022-05-26
+
+### Fixed
+- Register bootstrap-zone form component properly for Themes 3.1
+
 ## 1.0.1 - 2021-03-01
 
 ### Fixed
