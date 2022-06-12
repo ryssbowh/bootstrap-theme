@@ -65,6 +65,11 @@ class Settings extends Model
     public $scssEntryPoint = 'assets/src/scss/app.scss';
 
     /**
+     * @var string
+     */
+    public $scssBaseUrl = '/themes/bootstrap-theme';
+
+    /**
      * @var array
      */
     protected $_fontsDefinitions;

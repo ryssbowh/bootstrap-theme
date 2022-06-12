@@ -9,8 +9,6 @@ use Ryssbowh\CraftThemes\scss\ScssAssetBundle;
  */
 class FrontCssAssets extends ScssAssetBundle
 {
-    public $baseUrl = '/themes/bootstrap-theme';
-
     public $theme = 'bootstrap-theme';
 
     public $basePath = '@themeWebPath';
@@ -21,6 +19,7 @@ class FrontCssAssets extends ScssAssetBundle
     public function init()
     {
         parent::init();
+        $this->baseUrl = Theme::$plugin->settings->scssBaseUrl;
         $this->scssFiles[Theme::$plugin->settings->scssEntryPoint] = 'app.css';
     }
 
