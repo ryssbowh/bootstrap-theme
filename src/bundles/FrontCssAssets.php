@@ -19,7 +19,8 @@ class FrontCssAssets extends ScssAssetBundle
     public function init()
     {
         parent::init();
-        $this->baseUrl = Theme::$plugin->settings->scssBaseUrl;
+        $parsed = parse_url(\Craft::getAlias('@themeWeb'));
+        $this->baseUrl = $parsed['path'];
         $this->scssFiles[Theme::$plugin->settings->scssEntryPoint] = 'app.css';
     }
 

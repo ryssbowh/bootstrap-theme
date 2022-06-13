@@ -1,5 +1,9 @@
 # ryssbowh/bootsrtap-theme Changelog
 
+## 1.0.5 - 2022-06-13
+### Fixed
+- Removed scssBaseUrl setting and calculate FrontCssAssets bundle baseUrl from @themeWeb
+
 ## 1.0.4 - 2022-06-12
 ### Added
 - scssBaseUrl setting
