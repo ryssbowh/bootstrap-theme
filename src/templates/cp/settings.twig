@@ -164,15 +164,6 @@
                 fieldClass: 'width-50'
             })
         }}
-        {{
-            forms.textField({
-                name: 'settings[scssBaseUrl]',
-                label: 'Base url'|t('bootstrap-theme'),
-                instructions: 'The base url for the scss assets'|t('bootstrap-theme'),
-                value: settings.scssBaseUrl,
-                fieldClass: 'width-50'
-            })
-        }}
     </div>
 
     {% for name, tab in settings.tabs %}
