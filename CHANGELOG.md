@@ -1,5 +1,9 @@
 # ryssbowh/bootsrtap-theme Changelog
 
+## 2.0.5 - 2022-09-05
+### Fixed
+- Fixed validation error for User accordion displayer options
+
 ## 2.0.4 - 2022-06-13
 ### Fixed
 - Removed scssBaseUrl setting and calculate FrontCssAssets bundle baseUrl from @themeWeb

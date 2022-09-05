@@ -34,21 +34,4 @@ class UserAccordionOptions extends UserRenderedOptions
         ];
         return $options;
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function defineRules(): array
-    {
-        if (LayoutService::$isInstalling) {
-            return [];
-        }
-        return array_merge($this->defineViewModeRules(), [
-            ['headerDisplays', function () {
-                if (!$this->headerDisplays or sizeof($this->headerDisplays) == 0) {
-                    $this->addError('headerDisplays', \Craft::t('bootstrap-theme', 'Header displays are required'));
-                }
-            }, 'skipOnEmpty' => false]
-        ]);
-    }
 }
