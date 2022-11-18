@@ -22,8 +22,8 @@
     "name": "Bootstrap Theme",
     "handle": "bootstrap-theme",
     "developer": "The Web Puzzlers",
-    "developerUrl": "https://github.com/ryssbowh",
-    "documentationUrl": "https://github.com/ryssbowh/bootstrap-theme",
+    "developerUrl": "https://puzzlers.run",
+    "documentationUrl": "https://puzzlers.run/plugins/bootstrap-theme/2.x",
     "class": "Ryssbowh\\BootstrapTheme\\Theme"
   }
 }
