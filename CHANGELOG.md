@@ -1,6 +1,6 @@
 # ryssbowh/bootsrtap-theme Changelog
 
-## 2.0.6 - 2022-09-05
+## 2.0.6 - 2022-11-18
 
 ### Changed
 
