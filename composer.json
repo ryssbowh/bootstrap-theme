@@ -21,6 +21,9 @@
   "extra": {
     "name": "Bootstrap Theme",
     "handle": "bootstrap-theme",
+    "developer": "The Web Puzzlers",
+    "developerUrl": "https://puzzlers.run",
+    "documentationUrl": "https://puzzlers.run/plugins/bootstrap-theme/1.x",
     "class": "Ryssbowh\\BootstrapTheme\\Theme"
   }
 }
